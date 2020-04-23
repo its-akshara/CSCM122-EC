@@ -78,13 +78,18 @@ def input_params():
     params["delta"] = float(input())
     return params
 
-def main():
-    params = input_params()
-    
+def input_population():
     print("Enter population size (recommendation is 1000)")
     pop_size = int(input())
     if pop_size < 2:
         pop_size = 1000
+
+    return pop_size
+
+def main():
+    params = input_params()
+    
+    pop_size = input_population()
 
     print("Simulating the SIR model for an initial population of 1000.")
     print("Branching Factor = {}".format(params["beta"]/params["gamma"]))

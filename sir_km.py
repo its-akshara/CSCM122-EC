@@ -62,11 +62,11 @@ def calc_error(exp, real):
 
 def main():
     print("Enter beta.")
-    beta = 0.001#float(input())
+    beta = float(input())
     print("Enter gamma.")
-    gamma = 0.1#float(input())
+    gamma = float(input())
     print("Enter population size (recommendation is 1000)")
-    pop_size = 1000#int(input())
+    pop_size = int(input())
     if pop_size < 2:
         pop_size = 1000
 

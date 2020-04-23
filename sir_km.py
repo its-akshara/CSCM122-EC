@@ -64,30 +64,38 @@ def find_best_fit_params(data, init_conds):
 def calc_error(exp, real):
     return np.abs((exp-real)/real)
 
-def main():
+def print_model_errors(exp, real):
+    for param in exp:
+        print("Error in {}: {}".format(param, calc_error(exp[param], real[param])))
+
+def input_params():
+    params = {}
     print("Enter beta.")
-    beta = float(input())
+    params["beta"] = float(input())
     print("Enter gamma.")
-    gamma = float(input())
+    params["gamma"] = float(input())
     print("Enter delta.")
-    delta = float(input())
+    params["delta"] = float(input())
+    return params
+
+def main():
+    params = input_params()
+    
     print("Enter population size (recommendation is 1000)")
     pop_size = int(input())
     if pop_size < 2:
         pop_size = 1000
 
     print("Simulating the SIR model for an initial population of 1000.")
-    print("Branching Factor = {}".format(beta/gamma))
+    print("Branching Factor = {}".format(params["beta"]/params["gamma"]))
 
     init_conds = [pop_size - 1, 1, 0, 0]
-    model = simulate_model(100, 0.1, beta, gamma, delta, init_conds)
+    model = simulate_model(100, 0.1, params["beta"], params["gamma"], params["delta"], init_conds)
     plot_model(model)
 
     exp_params = find_best_fit_params(np.ndarray.transpose(model), init_conds)
     print(exp_params)
-    print("Error in beta: {}".format(calc_error(exp_params["beta"], beta)))
-    print("Error in gamma: {}".format(calc_error(exp_params["gamma"], gamma)))
-    print("Error in delta: {}".format(calc_error(exp_params["delta"], delta)))
+    print_model_errors(exp_params, params)
 
 if __name__ == "__main__":
     main()
